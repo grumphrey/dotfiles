@@ -66,7 +66,7 @@ return {
 			dashboard.section.buttons.val = {
 				dashboard.button("e", "  > New file", ":ene <CR>"),
 				dashboard.button("sf", "󰱼  > Find file", ":Telescope find_files<CR>"),
-				dashboard.button("?", "  > Recent", ":Telescope oldfiles<CR>"),
+				dashboard.button("sr", "  > Recent", ":Telescope oldfiles<CR>"),
 				dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 			}
 

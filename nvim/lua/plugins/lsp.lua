@@ -1,4 +1,5 @@
 return {
+	{ "folke/neodev.nvim", lazy = false, opts = {} },
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
@@ -61,5 +62,4 @@ return {
 	},
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	{ "folke/neodev.nvim", opts = {} },
 }

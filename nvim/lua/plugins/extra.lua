@@ -47,4 +47,22 @@ return {
 			require("colorizer").setup()
 		end,
 	},
+	{
+		-- Indentation guides
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		enabled = false,
+		config = function()
+			require("ibl").setup()
+		end,
+	},
+	{
+		-- Highlight uses of word under cursor
+		"RRethy/vim-illuminate",
+		opts = {},
+		config = function(_, opts)
+			require("illuminate").configure(opts)
+		end,
+	},
 }
