@@ -53,4 +53,11 @@ return {
 		event = "VeryLazy",
 		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
 	},
+	{ "tpope/vim-fugitive" },
+	{
+		"mbbill/undotree",
+		config = function()
+			vim.keymap.set("n", "<leader>ut", vim.cmd.UndotreeToggle)
+		end,
+	},
 }

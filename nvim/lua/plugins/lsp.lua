@@ -1,10 +1,10 @@
 return {
-	{ "folke/neodev.nvim", lazy = false, opts = {} },
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
 		config = function()
 			local lsp_zero = require("lsp-zero")
+			lsp_zero.extend_lspconfig()
 
 			lsp_zero.on_attach(function(client, bufnr)
 				-- see :help lsp-zero-keybindings
@@ -45,6 +45,33 @@ return {
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
 				}),
+			})
+		end,
+	},
+	{
+		"folke/neodev.nvim",
+		lazy = false,
+		opts = {},
+		config = function()
+			-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+			require("neodev").setup({
+				-- add any options here, or leave empty to use the default settings
+			})
+
+			-- then setup your lsp server as usual
+			local lsp_zero = require("lsp-zero")
+			lsp_zero.extend_lspconfig()
+			local lspconfig = require("lspconfig")
+
+			-- example to setup lua_ls and enable call snippets
+			lspconfig.lua_ls.setup({
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+					},
+				},
 			})
 		end,
 	},

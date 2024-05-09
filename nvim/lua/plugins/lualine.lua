@@ -296,7 +296,18 @@ return {
 							separator = { right = " ", left = "" },
 						},
 					},
-					lualine_b = {},
+					lualine_b = {
+						"harpoon",
+						{
+							"harpoon2",
+							-- color = icon_hl,
+							-- icon = "?",
+							-- indicators = { "a", "s", "q", "w" },
+							-- active_indicators = { "A", "S", "Q", "W" },
+							-- _separator = " ",
+							-- no_harpoon = "Harpoon not loaded",
+						},
+					},
 					lualine_c = {
 						{
 							parent_folder,
@@ -314,9 +325,10 @@ return {
 						{
 							"branch",
 							color = text_hl,
-							icon = { "   ", color = icon_hl },
+							-- icon = { "   ", color = icon_hl },
+							-- icon = { "  ", color = icon_hl },
 							separator = " ",
-							padding = 0,
+							padding = 2,
 						},
 						{
 							get_git_compare,
