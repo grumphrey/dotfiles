@@ -1,0 +1,307 @@
+{
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Caps Lock → Escape (tap) / Hyper (hold)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Caps Lock exits the open layer",
+                                "from": { "key_code": "caps_lock" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": {
+                                    "basic.to_if_alone_timeout_milliseconds": 200,
+                                    "basic.to_if_held_down_threshold_milliseconds": 300
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "App Switcher layer (Hyper+O to activate)",
+                        "manipulators": [
+                            {
+                                "description": "Hyper+O → enter open layer",
+                                "from": {
+                                    "key_code": "o",
+                                    "modifiers": { "mandatory": ["left_shift", "left_control", "left_option", "left_command"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Escape exits the open layer",
+                                "from": { "key_code": "escape" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + S → Safari",
+                                "from": { "key_code": "s" },
+                                "to": [
+                                    { "shell_command": "open -a Safari" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + O → Obsidian",
+                                "from": { "key_code": "n" },
+                                "to": [
+                                    { "shell_command": "open -a Obsidian" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + F → Firefox",
+                                "from": { "key_code": "f" },
+                                "to": [
+                                    { "shell_command": "open -a Firefox" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + W → WhatsApp",
+                                "from": { "key_code": "w" },
+                                "to": [
+                                    { "shell_command": "open -a WhatsApp" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + T → Telegram",
+                                "from": { "key_code": "t" },
+                                "to": [
+                                    { "shell_command": "open -a Telegram" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + D → Discord",
+                                "from": { "key_code": "d" },
+                                "to": [
+                                    { "shell_command": "open -a Discord" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + C → Claude",
+                                "from": { "key_code": "c" },
+                                "to": [
+                                    { "shell_command": "open -a Claude" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + Space → Finder",
+                                "from": { "key_code": "spacebar" },
+                                "to": [
+                                    { "shell_command": "open -a Finder" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + Return → Ghostty",
+                                "from": { "key_code": "return_or_enter" },
+                                "to": [
+                                    { "shell_command": "open -a Ghostty" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "open_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open layer + M → Spotify",
+                                "from": { "key_code": "m" },
+                                "to": [
+                                    { "shell_command": "open -a Spotify" },
+                                    {
+                                        "set_variable": {
+                                            "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}

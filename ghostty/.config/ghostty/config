@@ -2,3 +2,5 @@ macos-titlebar-style = hidden
 font-size = 14
 shell-integration = zsh
 mouse-hide-while-typing = true
+background-opacity = 0.95
+background-blur = true
