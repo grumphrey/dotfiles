@@ -111,7 +111,6 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim", -- formatter plugin
 	"https://github.com/ibhagwan/fzf-lua",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
-
 	"https://github.com/nvim-mini/mini.nvim", -- collection of plugins
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/folke/which-key.nvim",
@@ -122,6 +121,8 @@ vim.pack.add({
 	"https://github.com/nvim-zh/colorful-winsep.nvim",
 	"https://github.com/nvim-lua/plenary.nvim", -- harpoon dependency
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" }, -- quick switching among few commonly used files
+	"https://github.com/nvim-treesitter/nvim-treesitter-context", -- show current context (e.g. current function)
+	"https://github.com/j-hui/fidget.nvim", -- notification ui for lsp progress msgs
 })
 
 ----------------------------------------------------------------------------------------------------
@@ -160,7 +161,7 @@ end, { desc = "Toggle diff overlay" })
 ----------------------------------------------------------------------------------------------------
 -- CONFIGS
 ----------------------------------------------------------------------------------------------------
-vim.lsp.enable({ "lua_ls", "stylua", "basedpyright", "ruff", "ts_ls", "gopls" })
+vim.lsp.enable({ "lua_ls", "stylua", "basedpyright", "ruff", "ts_ls", "gopls", "rust_analyzer", "rustfmt" })
 
 require("nvim-treesitter").install({
 	"lua",
@@ -174,6 +175,12 @@ require("nvim-treesitter").install({
 	"zsh",
 	"markdown",
 })
+
+-- enable folds
+-- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.wo[0][0].foldmethod = "expr"
+-- enable indents
+-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 require("conform").setup({
 	formatters_by_ft = {
@@ -211,10 +218,10 @@ require("lualine").setup({
 			},
 			{
 				"encoding", -- don't show encoding (e.g. utf-8)
-				cond = function()
-					local fenc = vim.bo.fenc ~= "" and vim.bo.fenc or vim.go.enc
-					return fenc ~= "utf-8"
-				end,
+				-- cond = function()
+				-- 	local fenc = vim.bo.fenc ~= "" and vim.bo.fenc or vim.go.enc
+				-- 	return fenc ~= "utf-8"
+				-- end,
 			},
 			"fileformat",
 			"filetype",
@@ -285,6 +292,13 @@ vim.keymap.set("n", "<leader>hn", function()
 	harpoon:list():next()
 end, { desc = "Switch to previous harpoon buffer" })
 
+require("treesitter-context").setup()
+
+require("fidget").setup({
+	notification = {
+		override_vim_notify = true,
+	},
+})
 ----------------------------------------------------------------------------------------------------
 -- OTHER
 ----------------------------------------------------------------------------------------------------

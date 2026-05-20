@@ -47,12 +47,12 @@
                         ]
                     },
                     {
-                        "description": "App Switcher layer (Hyper+O to activate)",
+                        "description": "App Switcher layer (Hyper+A to activate)",
                         "manipulators": [
                             {
-                                "description": "Hyper+O → enter open layer",
+                                "description": "Hyper+A → enter open layer",
                                 "from": {
-                                    "key_code": "o",
+                                    "key_code": "a",
                                     "modifiers": { "mandatory": ["left_shift", "left_control", "left_option", "left_command"] }
                                 },
                                 "to": [

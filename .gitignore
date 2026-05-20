@@ -1,0 +1,7 @@
+.DS_Store
+*.swp
+tmux/plugins/
+hello.*
+old-nvim/
+.*.json
+automatic_backups/
