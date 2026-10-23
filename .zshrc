@@ -14,6 +14,13 @@ alias l="eza --oneline --icons --git"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias rg="rg --smart-case --hidden"
 
+# keymaps
+bindkey -s '^f'  "tmux-sessionizer\n"
+bindkey -s '\eh' "tmux-sessionizer -s 1\n"
+bindkey -s '\ej' "tmux-sessionizer -s 2\n"
+bindkey -s '\ek' "tmux-sessionizer -s 3\n"
+bindkey -s '\el' "tmux-sessionizer -s 4\n"
+
 # yazi (change the current working directory when exiting yazi)
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -55,11 +62,16 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-export PATH="/Library/Frameworks/Python.framework/Versions/3.14/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 22)
 export PATH=$JAVA_HOME/bin:$PATH
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PATH="$HOME/.local/bin:$PATH" # custom scripts
 
 eval "$(zoxide init --cmd cd zsh)"
 

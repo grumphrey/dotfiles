@@ -4,6 +4,33 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Block Control+Option+Shift+Command+Period/Comma (sysdiagnose triggers)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": {
+                                        "mandatory": ["left_control", "left_option", "left_shift", "left_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": {
+                                        "mandatory": ["left_control", "left_option", "left_shift", "left_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Caps Lock → Escape (tap) / Hyper (hold)",
                         "manipulators": [
                             {
@@ -289,6 +316,119 @@
                                     {
                                         "set_variable": {
                                             "name": "open_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Window Management layer (Hyper+W to activate)",
+                        "manipulators": [
+                            {
+                                "description": "Hyper+W → enter window layer",
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "mandatory": ["left_shift", "left_control", "left_option", "left_command"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "window_layer",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "window_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Escape exits the window layer",
+                                "from": { "key_code": "escape" },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "window_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "window_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Window layer + F → Fullscreen",
+                                "from": { "key_code": "f" },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["left_option", "left_shift"]
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "window_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "window_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Window layer + C → Center",
+                                "from": { "key_code": "c" },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_option", "left_shift"]
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "window_layer",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "window_layer",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Window layer + enter → layout",
+                                "from": { "key_code": "return_or_enter" },
+                                "to": [
+                                    {
+                                        "key_code": "return_or_enter",
+                                        "modifiers": ["left_option", "left_shift"]
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "window_layer",
                                             "value": 0
                                         }
                                     }

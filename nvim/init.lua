@@ -28,7 +28,7 @@ vim.opt.incsearch = true -- show matches while typing
 vim.opt.signcolumn = "yes:2" -- left side gutter width
 -- vim.opt.colorcolumn = "100" -- show column at 100 characters
 vim.opt.showmatch = true -- highlight matching brackets
-vim.opt.cmdheight = 0 -- command line height
+vim.opt.cmdheight = 1 -- command line height
 vim.opt.pumblend = 10 -- popup menu transparency
 vim.opt.winblend = 10 -- floating window transparency
 vim.o.pumborder = "rounded" -- rounded border on the completion popup
@@ -57,13 +57,13 @@ vim.o.confirm = true
 ----------------------------------------------------------------------------------------------------
 -- KEYMAPS
 ----------------------------------------------------------------------------------------------------
-vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true }) -- prevent accidentally starting macro recording
+-- vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true }) -- prevent accidentally starting macro recording
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Clear highlights on search when pressing <Esc> in normal mode (See `:help hlsearch`)
 
 vim.keymap.set("n", "<leader>w", "<cmd>write<CR>", { desc = "Save file" })
-vim.keymap.set("n", "<leader>qq", "<cmd>quit<CR>", { desc = "Close current buffer" })
-vim.keymap.set("n", "<leader>qa", "<cmd>quitall<CR>", { desc = "Exit vim" })
-vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open Netrw file explorer" })
+vim.keymap.set("n", "<leader>q", "<cmd>quit<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>Q", "<cmd>quitall<CR>", { desc = "Exit vim" })
+-- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open Netrw file explorer" })
 vim.keymap.set("x", "Y", '"+y', { noremap = true, silent = true, desc = "Copy visual selection to system clipboard" })
 vim.keymap.set("n", "<leader>bs", "<C-^>", { noremap = true, silent = true, desc = "Switch to alternate buffer" })
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
@@ -72,6 +72,7 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
+vim.keymap.set("n", "<leader>yy", '"+y', { desc = "Yank to system clipboard" })
 -- yank file path to system clipboard
 vim.keymap.set("n", "<leader>yp", function()
 	local path = vim.fn.expand("%:p")
@@ -90,8 +91,13 @@ end, { desc = "New file in same directory" })
 vim.keymap.set("n", "<leader>u", function()
 	vim.cmd.packadd("nvim.undotree")
 	require("undotree").open()
-end, { desc = "Toggle built-in undotree" })
+end, { desc = "Undotree" })
 vim.keymap.set("n", "<leader>re", ":restart<CR>", { desc = "Restart neovim" })
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<leader>s1", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
+vim.keymap.set("n", "<leader>s2", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
+vim.keymap.set("n", "<leader>s3", "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
+vim.keymap.set("n", "<leader>s4", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
 
 ----------------------------------------------------------------------------------------------------
 -- AUTOCOMMANDS
@@ -136,24 +142,29 @@ vim.pack.add({
 	},
 	"https://github.com/alexvzyl/nordic.nvim",
 
+	"https://github.com/nvim-mini/mini.nvim", -- collection of plugins
+
 	"https://github.com/christoomey/vim-tmux-navigator", -- navigate between vim and tmux splits
+	"https://github.com/nvim-lualine/lualine.nvim",
+	"https://github.com/sphamba/smear-cursor.nvim",
+	"https://github.com/nvim-zh/colorful-winsep.nvim",
+	"https://github.com/j-hui/fidget.nvim", -- notification ui for lsp progress msgs
+
 	"https://github.com/neovim/nvim-lspconfig", -- pre-written default LSP configs
 	"https://github.com/mason-org/mason.nvim", -- manage LSP servers, DAP, linters, formatters
 	"https://github.com/stevearc/conform.nvim", -- formatter plugin
-	"https://github.com/ibhagwan/fzf-lua",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
-	"https://github.com/nvim-mini/mini.nvim", -- collection of plugins
-	"https://github.com/nvim-lualine/lualine.nvim",
+	"https://github.com/nvim-treesitter/nvim-treesitter-context", -- show current context (e.g. current function)
+	"https://github.com/rafamadriz/friendly-snippets", -- snippet collection, loaded in runtimepath
+
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/folke/zen-mode.nvim",
-	-- "https://github.com/mbbill/undotree",
-	"https://github.com/rafamadriz/friendly-snippets", -- snippet collection, loaded in runtimepath
-	"https://github.com/nvim-zh/colorful-winsep.nvim",
+
+	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/kdheepak/lazygit.nvim", -- access lazygit ui in neovim
+	"https://github.com/sindrets/diffview.nvim",
 	"https://github.com/nvim-lua/plenary.nvim", -- harpoon dependency
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" }, -- quick switching among few commonly used files
-	"https://github.com/nvim-treesitter/nvim-treesitter-context", -- show current context (e.g. current function)
-	"https://github.com/j-hui/fidget.nvim", -- notification ui for lsp progress msgs
-	"https://github.com/sphamba/smear-cursor.nvim",
 })
 
 ----------------------------------------------------------------------------------------------------
@@ -184,7 +195,10 @@ vim.keymap.set("n", "<leader>fk", require("fzf-lua").keymaps, { desc = "FZF Keym
 vim.keymap.set("n", "ds", require("fzf-lua").lsp_document_symbols, { desc = "FZF LSP symbols in document" })
 vim.keymap.set("n", "grr", require("fzf-lua").lsp_references, { desc = "FZF LSP references" })
 vim.keymap.set("n", "gd", require("fzf-lua").lsp_definitions, { desc = "Go to definition" })
--- vim.keymap.set("n", "<leader>fz", require("fzf-lua").zoxide, { desc = "FZF tmux" })
+vim.keymap.set("n", "<leader>fz", require("fzf-lua").zoxide, { desc = "FZF zoxide" })
+vim.keymap.set("n", "<leader>fu", require("fzf-lua").undotree, { desc = "FZF undotree" })
+vim.keymap.set("n", "<leader>fR", require("fzf-lua").resume, { desc = "FZF resume" })
+vim.keymap.set("n", "<leader>fB", require("fzf-lua").resume, { desc = "FZF builtin" })
 vim.keymap.set(
 	"n",
 	"<leader>fd",
@@ -199,28 +213,54 @@ vim.keymap.set(
 )
 vim.keymap.set("n", "<leader>z", function()
 	require("zen-mode").toggle()
-end, { desc = "Toggle Zen Mode" })
+end, { desc = "Zen mode" })
 vim.keymap.set("n", "<leader>gd", function()
 	require("mini.diff").toggle_overlay()
-end, { desc = "Toggle diff overlay" })
-vim.keymap.set("n", "-", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle file explorer" })
+end, { desc = "Git diff" })
+vim.keymap.set("n", "<leader>gD", function()
+	local lib = require("diffview.lib")
+	local view = lib.get_current_view()
+	if view then
+		vim.cmd("DiffviewClose")
+	else
+		vim.cmd("DiffviewOpen")
+	end
+end, { desc = "Git diffview (project scope)" })
 
+vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>", { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open lazygit UI" })
 ----------------------------------------------------------------------------------------------------
 -- CONFIGS
 ----------------------------------------------------------------------------------------------------
-vim.lsp.enable({ "lua_ls", "stylua", "basedpyright", "ruff", "ts_ls", "gopls", "rust_analyzer", "rustfmt" })
+vim.lsp.enable({
+	"lua_ls",
+	"stylua",
+	"basedpyright",
+	"ruff",
+	"ts_ls",
+	"gopls",
+	"rust_analyzer",
+	"rustfmt",
+	"postgres_lsp",
+	"tailwindcss",
+	"astro",
+	"jdtls",
+})
 
 require("nvim-treesitter").install({
 	"lua",
 	"python",
 	"javascript",
 	"typescript",
+	"tsx",
 	"rust",
 	"go",
 	"html",
 	"css",
 	"zsh",
 	"markdown",
+	"yaml",
+	"java",
 })
 
 -- enable folds
@@ -236,11 +276,15 @@ require("conform").setup({
 		html = { "prettier" },
 		css = { "prettier" },
 		javascript = { "prettier" },
+		javascriptreact = { "prettier" }, -- JSX
 		typescript = { "prettier" },
+		typescriptreact = { "prettier" }, -- TSX
 		json = { "prettier" },
 		markdown = { "prettier" },
 		rust = { "rustfmt" },
 		go = { "gofmt" },
+		astro = { "prettier" },
+		yaml = { "prettier" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -249,8 +293,20 @@ require("conform").setup({
 })
 
 require("lualine").setup({
+	options = { icons_enabled = true },
 	sections = {
-		lualine_c = { { "filename", path = 2 } }, -- full file path
+		lualine_c = {
+			{
+				"filetype",
+				icon_only = true,
+				separator = "",
+				padding = { left = 0, right = 1 },
+			},
+			{
+				"filename",
+				path = 4,
+			},
+		},
 		lualine_x = { -- show lsp
 			{
 				function()
@@ -260,7 +316,9 @@ require("lualine").setup({
 					end
 					local names = {}
 					for _, client in ipairs(clients) do
-						table.insert(names, client.name)
+						if client.name ~= "mini.snippets" then
+							table.insert(names, client.name)
+						end
 					end
 					return " " .. table.concat(names, ", ")
 				end,
@@ -281,17 +339,21 @@ require("lualine").setup({
 require("mason").setup()
 require("colorful-winsep").setup()
 require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons() -- used for lualine icons
 require("mini.completion").setup() -- autocompletion plugin (automatic triggering, lsp integration, completion popup and window, snippets). improves over native completion api
 require("mini.files").setup() -- file explorer
 require("mini.cmdline").setup() -- command completion
 
 -- snippet engine
-require("mini.snippets").setup({
-	snippets = {
-		require("mini.snippets").gen_loader.from_lang(),
-	},
-})
-MiniSnippets.start_lsp_server({ match = false })
+-- require("mini.snippets").setup({
+-- 	mappings = {
+-- 		expand = "",
+-- 	},
+-- 	snippets = {
+-- 		require("mini.snippets").gen_loader.from_lang(),
+-- 	},
+-- })
+-- MiniSnippets.start_lsp_server({ match = false })
 
 require("mini.pairs").setup() -- autopairs for brackets, quotes etc.
 

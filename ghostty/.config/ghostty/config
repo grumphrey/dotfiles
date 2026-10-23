@@ -4,3 +4,5 @@ shell-integration = zsh
 mouse-hide-while-typing = true
 background-opacity = 0.95
 background-blur = true
+# keybind = global:cmd+enter=toggle_quick_terminal
+macos-option-as-alt = true

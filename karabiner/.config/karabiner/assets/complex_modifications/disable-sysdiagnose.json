@@ -1,0 +1,40 @@
+{
+  "title": "Disable sysdiagnose shortcut",
+  "rules": [
+    {
+      "description": "Block Control+Option+Shift+Command+Period/Comma (sysdiagnose triggers)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": ["left_control", "left_option", "left_shift", "left_command"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": ["left_control", "left_option", "left_shift", "left_command"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
